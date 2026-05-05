@@ -82,12 +82,12 @@ const COACH = {
 
   // Portfolio
   portfolio: [
-    { img: "assets/images/portfolio/p1.jpg", cat: "training", title: "Buổi tập sáng sớm",        tag: "Tập luyện", wide: true  },
-    { img: "assets/images/portfolio/p2.jpg", cat: "event",    title: "Hội thảo Fitness HCM 2024", tag: "Sự kiện",   wide: false },
-    { img: "assets/images/portfolio/p3.jpg", cat: "coaching", title: "Online Coaching Session",   tag: "Coaching",  wide: false },
-    { img: "assets/images/portfolio/p4.jpg", cat: "training", title: "Deadlift PR Day",           tag: "Tập luyện", wide: false },
-    { img: "assets/images/portfolio/p5.jpg", cat: "event",    title: "Workshop Dinh dưỡng",       tag: "Sự kiện",   wide: true  },
-    { img: "assets/images/portfolio/p6.jpg", cat: "coaching", title: "Kế hoạch cá nhân 1:1",      tag: "Coaching",  wide: false },
+    { img: "assets/fit1.JPG",   cat: "training", title: "Buổi tập sáng sớm",        tag: "Tập luyện", wide: true  },
+    { img: "assets/talk2.JPG",       cat: "event",    title: "Hội thảo Fitness", tag: "Sự kiện",   wide: false },
+    { img: "assets/talk7.JPG",   cat: "coaching", title: "Online Coaching Session",   tag: "Coaching",  wide: false },
+    { img: "assets/fit2.JPG",        cat: "training", title: "Deadlift PR Day",           tag: "Tập luyện", wide: false },
+    { img: "assets/workshop1.JPG",   cat: "event",    title: "Workshop Liên Đoàn Thể Thao",       tag: "Sự kiện",   wide: true  },
+    { img: "assets/coaching1.JPG",      cat: "coaching", title: "Kế hoạch cá nhân 1:1",      tag: "Coaching",  wide: false },
   ],
 
   locations: [
