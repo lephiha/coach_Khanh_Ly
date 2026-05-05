@@ -33,31 +33,6 @@ function imgOrPH(imgSrc, phEl, imgEl) {
     links.map(([h, l]) => `<li><a href="${h}">${l}</a></li>`).join('');
 })();
 
-// ── Hero ─────────────────────────────────────
-(function buildHero() {
-  document.getElementById('heroEyebrow').textContent = COACH.tagline;
-  document.getElementById('heroH1').innerHTML =
-    `BIẾN ĐỔI CƠ THỂ<br><em>ĐỊNH HÌNH</em><br>BẢN THÂN`;
-  document.getElementById('heroSub').textContent =
-    'Không chỉ là tập gym — là hành trình tái định hình bản thân. Cùng hệ thống luyện tập cá nhân hóa và tư duy chiến lược.';
-
-  document.getElementById('heroBadge').innerHTML =
-  COACH.stats.map(s => `
-    <div class="stat-item">
-      <div class="stat-number">${s.num}</div>
-      <div class="stat-label">${s.label}</div>
-    </div>`
-  ).join('');
-
-  if (COACH.about.img) {
-    const img = document.createElement('img');
-    img.alt = COACH.name;
-    img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:none';
-    document.getElementById('heroFrame').appendChild(img);
-    imgOrPH(COACH.about.img, document.getElementById('heroPlaceholder'), img);
-  }
-})();
-
 // ── About ─────────────────────────────────────
 (function buildAbout() {
   const ab = COACH.about;
@@ -217,15 +192,14 @@ COACH.slides.forEach((s, i) => {
   const el = document.createElement('div');
   el.className = 'slide' + (i === 0 ? ' is-active' : '');
   el.innerHTML = `
-    <div class="slide-img-wrap">
-      <div class="slide-placeholder">${s.emoji || ''}</div>
-    </div>
-    <div class="slide-overlay"></div>
     <div class="slide-content">
       <p  class="slide-tag">${s.tag}</p>
       <h2 class="slide-title">${titleHTML}</h2>
       <p  class="slide-desc">${s.desc}</p>
       <a  class="slide-cta" href="#contact">JOIN CLASSES +</a>
+    </div>
+    <div class="slide-img-wrap">
+      <div class="slide-placeholder">${s.emoji || ''}</div>
     </div>`;
 
   if (s.img) {
@@ -274,7 +248,7 @@ function animateSlideIn(slide) {
   const { tag, title, desc, cta, img } = getEls(slide);
   // Reset về trạng thái ẩn
   gsap.set([tag, title, desc, cta], { opacity: 0, y: 50 });
-  gsap.set(img, { opacity: 0, scale: 1.1, x: 80 });
+  gsap.set(img, { opacity: 0, scale: 1.15, x: 140 });
 
   return gsap.timeline()
     // Chữ vào trước — stagger từng phần
@@ -282,8 +256,8 @@ function animateSlideIn(slide) {
     .to(title, { opacity: 1, y: 0, duration: 0.75, ease: 'power3.out' }, 0.2)
     .to(desc,  { opacity: 1, y: 0, duration: 0.55, ease: 'power3.out' }, 0.38)
     .to(cta,   { opacity: 1, y: 0, duration: 0.45, ease: 'power3.out' }, 0.52)
-    // Ảnh vào sau — slide từ phải
-    .to(img,   { opacity: 1, scale: 1, x: 0, duration: 1.0, ease: 'power3.out' }, 0.3);
+    // Ảnh vào sau — slide từ phải (sau khi chữ xong)
+    .to(img,   { opacity: 1, scale: 1, x: 0, duration: 0.95, ease: 'power3.out' }, 0.85);
 }
 
 function animateSlideOut(slide) {

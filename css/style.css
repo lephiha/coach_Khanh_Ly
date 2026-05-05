@@ -247,7 +247,7 @@ nav.scrolled {
 /* ══════════════════════════════════════════════
    SLIDER — hoàn toàn mới
    ══════════════════════════════════════════════ */
-#slider-section { background: var(--ink); padding: 0; overflow: hidden }
+#slider-section { background: #fff; padding: 6.5rem 0 0; overflow: hidden }
 
 .slider-outer { position: relative; overflow: hidden }
 
@@ -263,54 +263,51 @@ nav.scrolled {
 .slide {
   position: absolute; inset: 0;
   display: none;
-  align-items: flex-end;
-  overflow: hidden;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  overflow: visible;
 }
 .slide.is-active { display: flex }
 
-/* Ảnh nền */
+/* Media (bên phải) */
 .slide-img-wrap {
-  position: absolute; inset: 0;
-  background: var(--ink-mid);
-  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: -8vw;
+  width: 62vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  pointer-events: none;
 }
 .slide-bg-img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-  opacity: 0.65;
+  width: 112%; height: 112%;
+  object-fit: contain; display: block;
+  opacity: 1;
 }
 .slide-placeholder {
   position: absolute; inset: 0;
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-display); font-size: 14rem; font-weight: 700;
-  color: rgba(255,255,255,0.04);
+  color: rgba(0,0,0,0.05);
   pointer-events: none; user-select: none;
 }
 
-/* Gradient tối từ dưới lên */
-.slide-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(26,20,16,0.95) 0%,
-    rgba(26,20,16,0.50) 40%,
-    rgba(26,20,16,0.08) 100%
-  );
-  z-index: 1;
-}
-
-/* Nội dung chữ — căn trái, chiếm ~55% width */
+/* Nội dung (bên trái) */
 .slide-content {
   position: relative; z-index: 2;
-  padding: 0 8vw 3.5rem;
-  width: 58%;
-  max-width: 680px;
+  padding: 0 6vw 0 8vw;
+  width: 46%;
+  max-width: 720px;
 }
 
 /* GSAP sẽ set opacity:0, y:50 trước khi animate */
 .slide-tag {
   font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase;
-  color: var(--pink-lt); margin-bottom: 0.8rem;
+  color: rgba(17,17,17,0.55); margin-bottom: 0.9rem;
 }
 .slide-title {
   font-family: var(--font-display);
@@ -319,13 +316,13 @@ nav.scrolled {
   letter-spacing: 0.01em;
   display: block;
 }
-/* Dòng 1 — trắng */
-.slide-title-main   { display: block; color: var(--white) }
+/* Dòng 1 — đen */
+.slide-title-main   { display: block; color: #111 }
 /* Dòng 2 — đỏ (giống mẫu "Fresh Mind", "Burn Fat") */
 .slide-title-accent { display: block; color: #e03030 }
 
 .slide-desc {
-  color: rgba(250,247,242,0.52);
+  color: rgba(17,17,17,0.55);
   margin-top: 1rem; font-size: 0.92rem; line-height: 1.75;
   max-width: 440px;
 }
@@ -349,7 +346,7 @@ nav.scrolled {
 .slider-dots { display: flex; gap: 0.5rem; align-items: center }
 .slider-dot {
   width: 28px; height: 28px; border-radius: 50%;
-  border: 1.5px solid rgba(250,247,242,0.35);
+  border: 1.5px solid rgba(0,0,0,0.18);
   background: transparent; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: border-color 0.25s; padding: 0;
@@ -357,21 +354,14 @@ nav.scrolled {
 }
 .slider-dot::after {
   content: ''; width: 8px; height: 8px; border-radius: 50%;
-  background: rgba(250,247,242,0.3);
+  background: rgba(0,0,0,0.18);
   transition: background 0.25s, transform 0.25s;
 }
 .slider-dot.is-active              { border-color: #e03030 }
 .slider-dot.is-active::after       { background: #e03030; transform: scale(1.4) }
 .s-arrow {
-  width: 40px; height: 40px;
-  border: 1px solid rgba(250,247,242,0.2);
-  background: rgba(26,20,16,0.55); backdrop-filter: blur(8px);
-  color: var(--white); cursor: pointer; font-size: 1rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: border-color 0.2s, transform 0.15s;
+  display: none;
 }
-.s-arrow:hover  { border-color: #e03030; transform: scale(1.06) }
-.s-arrow:active { transform: scale(0.94) }
 
 /* ── ABOUT ─────────────────────────────────────── */
 #about { padding: 10rem 6vw; position: relative; overflow: hidden }
@@ -681,7 +671,9 @@ footer {
 }
 @media(max-width:768px){
   .slider-inner  { height: 80svh; min-height: 520px }
-  .slide-content { width: 90%; padding: 0 5vw 5rem }
+  .slide { flex-direction: column-reverse; justify-content: flex-start }
+  .slide-content { width: 100%; padding: 3.5rem 6vw 0 }
+  .slide-img-wrap { position: relative; right: auto; width: 100%; height: 55% }
   .slide-title   { font-size: clamp(3.2rem,14vw,5rem) }
   .slide-desc    { display: none }
 }
