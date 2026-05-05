@@ -1,4 +1,4 @@
-# COACH ELITE — Hướng Dẫn Sử Dụng
+# Khánh Ly FitX — Hướng Dẫn Sử Dụng
 
 ## Cấu Trúc Project
 

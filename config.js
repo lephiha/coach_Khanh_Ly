@@ -1,25 +1,22 @@
-// ═══════════════════════════════════════════════
-//  COACH ELITE — CẤU HÌNH NỘI DUNG & HÌNH ẢNH
-//  Chỉnh sửa file này để cập nhật toàn bộ website
-// ═══════════════════════════════════════════════
 
 window.COACH_CONFIG = {
 
   // ── THÔNG TIN CÁ NHÂN ──────────────────────────
   coach: {
-    name:       "NGUYEN KHOA",          // Tên đầy đủ (chữ hoa)
-    nameShort:  "NK",                   // Chữ viết tắt cho avatar
-    title:      "Fitness & Life Coach", // Tiêu đề nghề nghiệp
-    tagline:    "BIẾN ĐỔI CƠ THỂ",     // Slogan lớn hero (dòng 1)
-    tagline2:   "ĐỊNH HÌNH",            // Slogan lớn hero (dòng 2)
-    tagline3:   "BẢN THÂN",            // Slogan lớn hero (dòng 3, accent màu)
+    name:       "Khánh Ly",          
+    nameShort:  "KL",                   
+    title:      "Fitness & Life Coach", 
+    tagline:    "BIẾN ĐỔI CƠ THỂ",     
+    tagline2:   "ĐỊNH HÌNH",            
+    tagline3:   "BẢN THÂN",            
     subtitle:   "Không chỉ là tập gym — là hành trình tái định hình bản thân. Cùng hệ thống luyện tập cá nhân hóa và tư duy chiến lược.",
-    brandName:  "COACH ELITE",          // Tên thương hiệu trên nav/footer
+    brandName:  "Khánh Ly FitX",          
     instagram:  "@coachkhoa.elite",
-    zalo:       "0901 234 567",
-    whatsapp:   "+84 901 234 567",
-    zaloLink:   "https://zalo.me/0901234567",
-    waLink:     "https://wa.me/84901234567",
+    zalo:       "0907 776 855",
+    whatsapp:   "+84 907 776 855",
+    email:      "khanhlyfitx@gmail.com",
+    zaloLink:   "https://zalo.me/0907776855",
+    waLink:     "https://wa.me/84907776855",
     igLink:     "https://instagram.com/coachkhoa.elite",
   },
 
@@ -51,9 +48,9 @@ window.COACH_CONFIG = {
   slides: [
     {
       tag:   "Fitness Coach • 8 năm kinh nghiệm",
-      title: ["NGUYEN", "KHOA"],
+      title: ["KHÁNH", "LY"],
       desc:  "Chuyên gia luyện tập cá nhân hóa — từ người mới bắt đầu đến vận động viên chuyên nghiệp.",
-      image: "assets/images/slider/slide-1.jpg",  // ← thay ảnh tại đây
+      image: "assets/ly5.JPG",  // ← thay ảnh tại đây
       // emoji dùng khi chưa có ảnh:
       placeholder: "🏋️",
     },
@@ -68,7 +65,7 @@ window.COACH_CONFIG = {
       tag:   "Diễn giả sự kiện",
       title: ["PUBLIC", "SPEAKER"],
       desc:  "Diễn giả tại 30+ sự kiện fitness và lifestyle trên toàn quốc.",
-      image: "assets/images/slider/slide-3.jpg",
+      image: "assets/talk1.jpg",
       placeholder: "🎤",
     },
   ],
