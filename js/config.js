@@ -84,10 +84,16 @@ const COACH = {
   portfolio: [
     { img: "assets/fit1.JPG",   cat: "training", title: "Buổi tập sáng sớm",        tag: "Tập luyện", wide: true  },
     { img: "assets/talk2.JPG",       cat: "event",    title: "Hội thảo Fitness", tag: "Sự kiện",   wide: false },
+    { img: "assets/ly2.JPG",       cat: "event",    title: "Tự tin trên sân khấu", tag: "Sự kiện",   wide: false },
     { img: "assets/talk7.JPG",   cat: "coaching", title: "Online Coaching Session",   tag: "Coaching",  wide: false },
+    { img: "assets/fit3.JPG",   cat: "coaching", title: "Hướng dẫn tập luyện cá nhân",   tag: "Coaching",  wide: false },
     { img: "assets/fit2.JPG",        cat: "training", title: "Deadlift PR Day",           tag: "Tập luyện", wide: false },
     { img: "assets/workshop1.JPG",   cat: "event",    title: "Workshop Liên Đoàn Thể Thao",       tag: "Sự kiện",   wide: true  },
+    { img: "assets/sk4.JPG",   cat: "event",    title: "Hội thảo về sức khỏe",       tag: "Sự kiện",   wide: true  },
     { img: "assets/coaching1.JPG",      cat: "coaching", title: "Kế hoạch cá nhân 1:1",      tag: "Coaching",  wide: false },
+    { img: "assets/everyoutdoor2.JPG",        cat: "training", title: "Tập luyện ngoài trời",           tag: "Tập luyện", wide: false },
+    { img: "assets/fit5.JPG",        cat: "training", title: "Tập luyện cùng FitX",           tag: "Tập luyện", wide: false },
+    { img: "assets/everybody1.JPG",      cat: "coaching", title: "Học viên tốt nghiệp khóa HLV",      tag: "Coaching",  wide: false },
   ],
 
   locations: [

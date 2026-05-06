@@ -6,15 +6,17 @@
 <title>Khánh Ly FitX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Barlow+Condensed:wght@300;400;500;600;700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<link rel="stylesheet" href="css/style.css">
-</head>
-<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mobile.css" media="(max-width: 768px)">
+  </head>
+  <body>
 
 <!-- PRELOADER -->
 <div id="preloader">
   <div class="pre-inner">
+    <img class="pre-logo" src="assets/logo.png" alt="Khánh Ly FitX">
     <div class="pre-word" id="preWord">Khánh Ly <em>FitX</em></div>
     <div class="pre-line" id="preLine"></div>
     <div class="pre-pct" id="prePct">0%</div>
@@ -23,28 +25,114 @@
 
 <!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="nav-logo" id="navLogo">Khánh Ly <span>FitX</span></a>
+  <a href="#" class="nav-logo" id="navLogo">
+    <img class="nav-logo-img" src="assets/logo.png" alt="Khánh Ly FitX">
+    <span class="nav-logo-text">Khánh Ly <span>FitX</span></span>
+  </a>
   <ul class="nav-links" id="navLinks"></ul>
   <a href="#contact" class="nav-cta">Đặt lịch ngay</a>
-  <div class="hamburger" id="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+  <div class="nav-icons" aria-label="Quick actions">
+    <button class="icon-btn" type="button" aria-label="Mở menu nhanh" onclick="toggleQuickNav()">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M4 5a1 1 0 0 1 1-1h5v5H4V5Zm10-1h5a1 1 0 0 1 1 1v4h-6V4ZM4 13h6v7H5a1 1 0 0 1-1-1v-6Zm10 0h6v6a1 1 0 0 1-1 1h-5v-7Z"/>
+      </svg>
+    </button>
+    <button class="icon-btn" type="button" aria-label="Mở/đóng sidebar" onclick="toggleMenu()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+        <path d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <div class="quick-nav" id="quickNav" aria-hidden="true">
+      <ul id="quickNavLinks"></ul>
+    </div>
+  </div>
 </nav>
 
-<div id="mobile-menu">
-  <a href="#about"     onclick="toggleMenu()">Về tôi</a>
-  <a href="#services"  onclick="toggleMenu()">Dịch vụ</a>
-  <a href="#results"   onclick="toggleMenu()">Kết quả</a>
-  <a href="#portfolio" onclick="toggleMenu()">Portfolio</a>
-  <a href="#contact"   onclick="toggleMenu()">Liên hệ</a>
+<!-- SIDEBAR MENU (Mobile) -->
+<div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleMenu(false)"></div>
+<aside class="sidebar" id="sidebar" aria-hidden="true">
+  <div class="sidebar-header">
+    <div class="sidebar-brand">
+      <img src="assets/logo.png" alt="Khánh Ly FitX" class="sidebar-brand-img">
+      <div class="sidebar-brand-text">
+        <div class="sidebar-brand-title">
+          <span class="sbt-main">Khánh Ly</span><span class="sbt-sep"> </span><span class="sbt-accent">FitX</span>
+        </div>
+        <div class="sidebar-brand-sub">Tập Là Thích</div>
+      </div>
+    </div>
+    <button class="sidebar-close" type="button" aria-label="Đóng menu" onclick="toggleMenu(false)">✕</button>
+  </div>
+
+  <div class="sidebar-content">
+    <h3 class="sidebar-h3">Liên hệ</h3>
+    <div class="sidebar-contact-info" id="sidebarContactInfo"></div>
+
+    <div class="sidebar-handle">@khanhlyfitx</div>
+
+  <hr class="sidebar-hr">
+
+  <h3 class="sidebar-h3">CHỈ SỐ BMI</h3>
+  <p class="sidebar-p">Kiểm tra chỉ số cơ thể của bạn ngay tại đây.</p>
+  <a class="sidebar-bmi-btn" href="#" onclick="openBMI(); return false;">⚡ TÍNH NGAY</a>
+
+  <hr class="sidebar-hr">
+
+  <h3 class="sidebar-h3">THƯ VIỆN</h3>
+  <div class="sidebar-mini-grid">
+    <div class="sidebar-mini-item"><img src="assets/serivce/fit1-1.jpg" alt=""></div>
+    <div class="sidebar-mini-item"><img src="assets/serivce/fit-group.jpg" alt=""></div>
+    <div class="sidebar-mini-item"><img src="assets/serivce/fit-online.jpg" alt=""></div>
+  </div>
+  </div>
+</aside>
+
+<!-- BMI OVERLAY -->
+<div class="bmi-overlay" id="bmiOverlay" aria-hidden="true">
+  <div class="bmi-modal" role="dialog" aria-modal="true" aria-label="Tính chỉ số BMI">
+    <button class="bmi-close" type="button" aria-label="Đóng" onclick="closeBMI()">✕</button>
+
+    <h2 class="bmi-title">TÍNH CHỈ SỐ BMI</h2>
+    <p class="bmi-sub">Nhập thông tin để kiểm tra chỉ số cơ thể</p>
+
+    <div class="bmi-fields">
+      <div class="bmi-field">
+        <label for="bmi-h">CHIỀU CAO (CM)</label>
+        <input type="number" id="bmi-h" placeholder="Ví dụ: 165" inputmode="numeric">
+      </div>
+      <div class="bmi-field">
+        <label for="bmi-w">CÂN NẶNG (KG)</label>
+        <input type="number" id="bmi-w" placeholder="Ví dụ: 60" inputmode="numeric">
+      </div>
+      <div class="bmi-field">
+        <label for="bmi-a">TUỔI</label>
+        <input type="number" id="bmi-a" placeholder="Ví dụ: 25" inputmode="numeric">
+      </div>
+    </div>
+
+    <button class="bmi-calc-btn" type="button" onclick="calcBMIOverlay()">TÍNH TOÁN →</button>
+
+    <div class="bmi-result" id="bmi-result" style="display:none">
+      <div class="bmi-result-top">CHỈ SỐ BMI CỦA BẠN</div>
+      <div class="bmi-num" id="bmi-num"></div>
+      <div class="bmi-tag" id="bmi-tag"></div>
+      <div class="bmi-bar-wrap">
+        <div class="bmi-marker" id="bmi-marker"></div>
+      </div>
+      <div class="bmi-bar-labels">
+        <span>Thiếu cân</span><span>BT</span><span>Thừa cân</span><span>Béo phì</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- SLIDER -->
 <div id="slider-section">
   <div class="slider-outer" id="sliderOuter">
  
-    <!-- Slides được JS build vào đây -->
     <div class="slider-inner" id="sliderInner"></div>
  
-    <!-- UI: arrows + dots -->
     <div class="slider-ui">
       <div class="s-arrow" onclick="changeSlide(-1)">&#8592;</div>
       <div class="slider-dots" id="sliderDots"></div>
@@ -208,13 +296,18 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-logo" id="footLogo">Khánh Ly <span>FitX</span></div>
-  <div class="foot-copy" id="footCopy"></div>
-  <div class="foot-links">
-    <a href="#about">Về tôi</a>
-    <a href="#services">Dịch vụ</a>
-    <a href="#contact">Liên hệ</a>
+  <div class="foot-top">
+    <div class="foot-logo" id="footLogo">
+      <img class="foot-logo-img" src="assets/logo.png" alt="Khánh Ly FitX">
+      <span class="foot-logo-text">Khánh Ly <span>FitX</span></span>
+    </div>
+    <div class="foot-links">
+      <a href="#about">Về tôi</a>
+      <a href="#services">Dịch vụ</a>
+      <a href="#contact">Liên hệ</a>
+    </div>
   </div>
+  <div class="foot-copy" id="footCopy"></div>
 </footer>
 
 <script src="js/config.js"></script>

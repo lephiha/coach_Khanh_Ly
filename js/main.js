@@ -31,6 +31,13 @@ function imgOrPH(imgSrc, phEl, imgEl) {
   ];
   document.getElementById('navLinks').innerHTML =
     links.map(([h, l]) => `<li><a href="${h}">${l}</a></li>`).join('');
+
+  const quickList = document.getElementById('quickNavLinks');
+  if (quickList) {
+    const quickLinks = links.filter(([h]) => h !== '#about');
+    quickList.innerHTML =
+      quickLinks.map(([h, l]) => `<li><a href="${h}" onclick="toggleQuickNav(false)">${l}</a></li>`).join('');
+  }
 })();
 
 // ── About ─────────────────────────────────────
@@ -165,6 +172,22 @@ function imgOrPH(imgSrc, phEl, imgEl) {
       <div class="c-icon">${i.icon}</div>
       <div><div class="c-lbl">${i.label}</div><div class="c-val">${co[i.key].display}</div></div>
     </a>`).join('');
+
+  const sidebarContactInfo = document.getElementById('sidebarContactInfo');
+  if (sidebarContactInfo) {
+    const infoItems = [
+      { key: 'address', emoji: '📍' },
+      { key: 'phone',   emoji: '📞' },
+      { key: 'email',   emoji: '✉️' },
+    ].filter(i => co[i.key] && co[i.key].url && co[i.key].display);
+
+    sidebarContactInfo.innerHTML = infoItems.map(i => `
+      <a class="sidebar-contact-item" href="${co[i.key].url}" onclick="toggleMenu(false)"${i.key === 'address' ? ' target="_blank"' : ''}>
+        <span class="sidebar-contact-emoji">${i.emoji}</span>
+        <span class="sidebar-contact-text">${co[i.key].display}</span>
+      </a>
+    `).join('');
+  }
 
   document.getElementById('fabZalo').href = co.zalo.url;
   document.getElementById('fabWa').href   = co.phone.url;
@@ -326,6 +349,7 @@ document.getElementById('sliderOuter').addEventListener('touchend', e => {
 // ══════════════════════════════════════════════
 (function runPreloader() {
   let prog = 0;
+  gsap.to('.pre-logo', { opacity: 1, y: 0, duration: 0.5, delay: 0.05 });
   gsap.to('.pre-word', { opacity: 1, y: 0, duration: 0.5, delay: 0.15 });
 
   const pi = setInterval(() => {
@@ -575,6 +599,123 @@ if (_aboutStats) {
 // ══════════════════════════════════════════════
 //  MOBILE MENU
 // ══════════════════════════════════════════════
-function toggleMenu() {
-  document.getElementById('mobile-menu').classList.toggle('open');
+function toggleMenu(forceOpen) {
+  const sidebar = document.getElementById('sidebar');
+  const backdrop = document.getElementById('sidebarBackdrop');
+  if (!sidebar || !backdrop) return;
+
+  // Close quick-nav if opening sidebar
+  if (typeof forceOpen !== 'boolean' || forceOpen === true) toggleQuickNav(false);
+
+  const willOpen = typeof forceOpen === 'boolean' ? forceOpen : !sidebar.classList.contains('open');
+  sidebar.classList.toggle('open', willOpen);
+  backdrop.classList.toggle('open', willOpen);
+  sidebar.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+  document.documentElement.style.overflow = willOpen ? 'hidden' : '';
+}
+
+function toggleQuickNav(forceOpen) {
+  const quickNav = document.getElementById('quickNav');
+  if (!quickNav) return;
+
+  // Close sidebar if opening quick-nav
+  if (typeof forceOpen !== 'boolean' || forceOpen === true) toggleMenu(false);
+
+  const willOpen = typeof forceOpen === 'boolean' ? forceOpen : !quickNav.classList.contains('open');
+  quickNav.classList.toggle('open', willOpen);
+  quickNav.setAttribute('aria-hidden', willOpen ? 'false' : 'true');
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key !== 'Escape') return;
+  const sidebar = document.getElementById('sidebar');
+  if (sidebar && sidebar.classList.contains('open')) toggleMenu(false);
+  const quickNav = document.getElementById('quickNav');
+  if (quickNav && quickNav.classList.contains('open')) toggleQuickNav(false);
+  const bmiOverlay = document.getElementById('bmiOverlay');
+  if (bmiOverlay && bmiOverlay.classList.contains('open')) closeBMI();
+});
+
+document.addEventListener('click', (e) => {
+  const quickNav = document.getElementById('quickNav');
+  if (!quickNav || !quickNav.classList.contains('open')) return;
+  if (quickNav.contains(e.target)) return;
+  if (e.target.closest && e.target.closest('.nav-icons')) return;
+  toggleQuickNav(false);
+});
+
+// ════════════════════════════════════════════════════════════════════
+// BMI Overlay
+// ════════════════════════════════════════════════════════════════════
+function openBMI() {
+  const o = document.getElementById('bmiOverlay');
+  if (!o) return;
+
+  toggleMenu(false);
+  toggleQuickNav(false);
+
+  o.classList.add('open');
+  o.setAttribute('aria-hidden', 'false');
+  document.documentElement.style.overflow = 'hidden';
+
+  const h = document.getElementById('bmi-h');
+  if (h) setTimeout(() => h.focus(), 0);
+}
+
+function closeBMI() {
+  const o = document.getElementById('bmiOverlay');
+  if (!o) return;
+
+  o.classList.remove('open');
+  o.setAttribute('aria-hidden', 'true');
+
+  const result = document.getElementById('bmi-result');
+  if (result) result.style.display = 'none';
+
+  const sidebar = document.getElementById('sidebar');
+  if (!sidebar || !sidebar.classList.contains('open')) {
+    document.documentElement.style.overflow = '';
+  }
+}
+
+(function bindBMICloseOnBackdrop() {
+  const o = document.getElementById('bmiOverlay');
+  if (!o) return;
+  o.addEventListener('click', function (e) {
+    if (e.target === this) closeBMI();
+  });
+})();
+
+function calcBMIOverlay() {
+  const h = parseFloat(document.getElementById('bmi-h')?.value || '');
+  const w = parseFloat(document.getElementById('bmi-w')?.value || '');
+  if (!h || !w || h <= 0 || w <= 0) return;
+
+  const bmi = w / ((h / 100) * (h / 100));
+  const val = Math.round(bmi * 10) / 10;
+
+  let label, pct;
+  if (bmi < 18.5) {
+    label = '🔵 Thiếu cân';
+    pct = (bmi / 18.5) * 20;
+  } else if (bmi < 25) {
+    label = '🟢 Bình thường';
+    pct = 20 + ((bmi - 18.5) / 6.5) * 30;
+  } else if (bmi < 30) {
+    label = '🟠 Thừa cân';
+    pct = 50 + ((bmi - 25) / 5) * 25;
+  } else {
+    label = '🔴 Béo phì';
+    pct = 75 + Math.min(((bmi - 30) / 10) * 25, 25);
+  }
+
+  const num = document.getElementById('bmi-num');
+  const tag = document.getElementById('bmi-tag');
+  const marker = document.getElementById('bmi-marker');
+  const result = document.getElementById('bmi-result');
+
+  if (num) num.textContent = String(val);
+  if (tag) tag.textContent = label;
+  if (marker) marker.style.left = Math.min(pct, 97) + '%';
+  if (result) result.style.display = 'block';
 }
